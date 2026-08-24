@@ -1,0 +1,10 @@
+[
+  {
+    "id": "rvizivalka",
+    "title": "Real Visivalka",
+    "version": "1.4.0",
+    "icon": "https://raw.githubusercontent.com/Amarasenik/Devik_db/main/icons/rv.png",
+    "download_url": "https://github.com/Amarasenik/Devik_db/releases/download/v1.4.0/rvizivalka.zip",
+    "description": "Официальная сборка легендарной Выживалки на движке EDvk."
+  }
+]
