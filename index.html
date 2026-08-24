@@ -8,10 +8,10 @@
         :root {
             --bg: #121212;
             --card-bg: #1a1a1a;
-            --card-active: #242424; /* Выбранная ячейка темнее */
+            --card-active: #242424;
             --accent: #ff0000;
             --success: #39ff14;
-            --danger: #ff3333;      /* Красный цвет для недоступных платформ */
+            --danger: #ff3333;
             --text: #ffffff;
             --gray-text: #b0b0b0;
         }
@@ -34,6 +34,233 @@
         header h1 {
             margin: 0;
             font-size: 2rem;
+            letter-spacing: 2px;
+            font-weight: 900;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .loader {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #888;
+            margin-top: 40px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border: 2px solid #333;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .game-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            gap: 15px;
+            border-bottom: 2px solid #333;
+        }
+
+        .game-icon {
+            width: 65px;
+            height: 65px;
+            background: #252525;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid #444;
+            flex-shrink: 0;
+        }
+
+        .game-title-box {
+            flex-grow: 1;
+            background: #222;
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 10px 15px;
+        }
+
+        .game-title-box h2 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .game-version {
+            font-size: 0.75rem;
+            background: #333;
+            color: var(--success);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            background: #181818;
+            border-bottom: 2px solid #333;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text);
+            padding: 12px 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-right: 1px solid #333;
+            text-align: center;
+        }
+
+        .tab-btn:last-child {
+            border-right: none;
+        }
+
+        .tab-btn.active {
+            background-color: var(--card-active);
+            color: var(--success);
+            border-bottom: 2px solid var(--success);
+        }
+
+        .tab-btn.unavailable {
+            color: var(--danger);
+        }
+
+        .tab-btn.unavailable.active {
+            background-color: #301515;
+            border-bottom: 2px solid var(--danger);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 15px;
+            max-height: 220px;
+            overflow-y: auto;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--gray-text);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .download-btn-filled {
+            display: block;
+            width: 100%;
+            background-color: var(--success);
+            color: #000;
+            text-align: center;
+            padding: 12px 0;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 15px;
+            text-transform: uppercase;
+            box-sizing: border-box;
+        }
+
+        .download-btn-filled.disabled {
+            background-color: var(--danger);
+            color: #fff;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>RVIVE</h1>
+    </header>
+
+    <div class="container">
+        <div id="games-list">
+            <div class="loader">Загрузка игр...</div>
+        </div>
+    </div>
+
+    <script>
+        async function loadGames() {
+            const container = document.getElementById('games-list');
+            
+            try {
+                const response = await fetch('games.json');
+                if (!response.ok) throw new Error('Ошибка загрузки данных');
+                
+                const games = await response.json();
+                container.innerHTML = '';
+
+                games.forEach(game => {
+                    const card = document.createElement('div');
+                    card.className = 'game-card';
+
+                    const winAvail = game.platforms.windows.available;
+                    const androidAvail = game.platforms.android.available;
+
+                    card.innerHTML = `
+                        <div class="game-header">
+                            <img src="${game.icon}" alt="${game.title}" class="game-icon" onerror="this.src='https://via.placeholder.com/64?text=ICON'">
+                            <div class="game-title-box">
+                                <h2>${game.title} <span class="game-version">v${game.version}</span></h2>
+                            </div>
+                        </div>
+
+                        <div class="tabs-nav">
+                            <button class="tab-btn active" onclick="switchTab(this, 'desc-${game.id}')">Описание</button>
+                            <button class="tab-btn ${winAvail ? '' : 'unavailable'}" onclick="switchTab(this, 'win-${game.id}')">Windows</button>
+                            <button class="tab-btn ${androidAvail ? '' : 'unavailable'}" onclick="switchTab(this, 'android-${game.id}')">Android</button>
+                        </div>
+
+                        <div id="desc-${game.id}" class="tab-content active">
+                            <p>${game.description}</p>
+                        </div>
+
+                        <div id="win-${game.id}" class="tab-content">
+                            <p><strong>Системные требования ПК:</strong></p>
+                            <p>${game.requirements.pc}</p>
+                            <a href="${game.platforms.windows.url}" class="download-btn-filled ${winAvail ? '' : 'disabled'}" target="_blank">
+                                ${winAvail ? 'Скачать для ПК' : 'Недоступно'}
+                            </a>
+                        </div>
+
+                        <div id="android-${game.id}" class="tab-content">
+                            <p><strong>Системные требования Android:</strong></p>
+                            <p>${game.requirements.android}</p>
+                            <a href="${game.platforms.android.url}" class="download-btn-filled ${androidAvail ? '' : 'disabled'}" target="_blank">
+                                ${androidAvail ? 'Скачать на Android' : 'Не вышло на Android'}
+                            </a>
+                        </div>
+                    `;
+
+                    container.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = `<div class="loader" style="color: var(--danger);">Не удалось загрузить games.json</div>`;
+            }
+        }
+
+        function switchTab(button, contentId) {
+            const card = button.closest('.game-card');
+            card.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            card.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            button.classList.add('active');
+            document.getElementById(contentId).classList.add('active');
+        }
+
+        loadGames();
+    </script>
+
+</body>
+</html>
             letter-spacing: 2px;
             font-weight: 900;
         }
