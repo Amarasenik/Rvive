@@ -4,7 +4,14 @@
     "title": "Real Visivalka",
     "version": "1.4.0",
     "icon": "https://raw.githubusercontent.com/Amarasenik/Devik_db/main/icons/rv.png",
-    "download_url": "https://github.com/Amarasenik/Devik_db/releases/download/v1.4.0/rvizivalka.zip",
-    "description": "Официальная сборка легендарной Выживалки на движке EDvk."
+    "description": "Официальная сборка легендарной Выживалки на движке EDvk. Исследуйте опасный открытый мир, добывайте ресурсы и боритесь за жизнь в суровых условиях.",
+    "platforms": {
+      "windows": { "available": true, "url": "https://github.com/Amarasenik/Devik_db/releases/download/v1.4.0/rvizivalka_pc.zip" },
+      "android": { "available": false, "url": "#" }
+    },
+    "requirements": {
+      "pc": "OS: Windows 7/10/11, ОЗУ: 2 ГБ, Место на диске: 300 МБ",
+      "android": "Игра еще не вышла на Android!"
+    }
   }
 ]
