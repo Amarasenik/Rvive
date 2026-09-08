@@ -14,4 +14,20 @@
       "android": "Игра еще не вышла на Android!"
     }
   }
+  
+  {
+    "id": "vbrapp",
+    "title": "Vibrator",
+    "version": "2.1",
+    "icon": "https://raw.githubusercontent.com/Amarasenik/Devik_db/main/icons/rv.png",
+    "description": "Первое функциональное приложение в андроид студио.",
+    "platforms": {
+      "windows": { "available": false, "url": "#" },
+      "android": { "available": true, "url": "https://github.com/Amarasenik/Devik_db/raw/refs/heads/main/%D0%92%D0%B8%D0%B1%D1%80%D0%B0%D1%82%D0%BE%D1%80.apk" }
+    },
+    "requirements": {
+      "pc": "Вибромотор и нервы так как разраб не портирует это на пк",
+      "android": "Вибромотор!"
+    }
+  }
 ]
