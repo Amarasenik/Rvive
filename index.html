@@ -31,7 +31,6 @@
             justify-content: center;
         }
 
-        /* Зафиксированная шапка ("челка") */
         header {
             position: fixed;
             top: 0;
@@ -61,14 +60,19 @@
             padding: 0 12px;
         }
 
-        /* Карточка игры */
+        .loader {
+            text-align: center;
+            color: var(--text-sub);
+            margin-top: 30px;
+        }
+
         .game-card {
             background: var(--card-bg);
             border: 1px solid #262931;
             border-radius: 16px;
             padding: 16px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            margin-top: 10px;
+            margin-bottom: 20px;
         }
 
         .card-header {
@@ -130,23 +134,24 @@
             text-decoration: none;
             font-weight: bold;
             font-size: 0.85rem;
-            transition: transform 0.1s, opacity 0.2s;
+            transition: transform 0.1s;
         }
 
         .btn:active {
             transform: scale(0.97);
         }
 
-        .btn-win {
+        .btn-active {
             background: var(--green);
             color: #000;
         }
 
-        .btn-android {
+        .btn-disabled {
             background: var(--red-disabled);
             color: #ff6b6b;
             cursor: not-allowed;
             border: 1px solid #522323;
+            pointer-events: none;
         }
 
         .btn span {
@@ -164,33 +169,60 @@
     </header>
 
     <div class="wrapper">
-        <main>
-            <div class="game-card">
-                <div class="card-header">
-                    <img src="https://raw.githubusercontent.com/Amarasenik/Devik_db/main/icons/rv.png" alt="Real Visivalka" class="game-icon" onerror="this.src='https://via.placeholder.com/60?text=RV'">
-                    <div class="game-title">
-                        <h2>Real Visivalka</h2>
-                        <span class="badge">v1.4.0</span>
-                    </div>
-                </div>
-
-                <div class="description">
-                    Официальная сборка легендарной Выживалки на движке EDvk. Исследуйте опасный открытый мир, добывайте ресурсы и боритесь за жизнь в суровых условиях.
-                </div>
-
-                <div class="download-grid">
-                    <a href="https://github.com/Amarasenik/Devik_db/releases/download/v1.4.0/rvizivalka_pc.zip" class="btn btn-win" download>
-                        Windows
-                        <span>Скачать ZIP</span>
-                    </a>
-                    <div class="btn btn-android">
-                        Android
-                        <span>Скоро</span>
-                    </div>
-                </div>
-            </div>
+        <main id="app-list">
+            <div class="loader">Загрузка приложений из базы данных...</div>
         </main>
     </div>
 
+    <script>
+        async function loadApps() {
+            const container = document.getElementById('app-list');
+            try {
+                // Если база лежит в другом месте/файле, поправь имя здесь (например 'games.json')
+                const res = await fetch('games.json');
+                if (!res.ok) throw new Error('Ошибка сети');
+                const apps = await res.json();
+
+                container.innerHTML = '';
+
+                apps.forEach(app => {
+                    const win = app.platforms?.windows || {};
+                    const android = app.platforms?.android || {};
+
+                    const card = document.createElement('div');
+                    card.className = 'game-card';
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <img src="${app.icon || ''}" alt="${app.title}" class="game-icon" onerror="this.src='https://via.placeholder.com/60?text=APP'">
+                            <div class="game-title">
+                                <h2>${app.title}</h2>
+                                <span class="badge">v${app.version || '1.0'}</span>
+                            </div>
+                        </div>
+
+                        <div class="description">
+                            ${app.description || 'Описание отсутствует.'}
+                        </div>
+
+                        <div class="download-grid">
+                            ${win.available 
+                                ? `<a href="${win.url}" class="btn btn-active" download>Windows<span>Скачать</span></a>`
+                                : `<div class="btn btn-disabled">Windows<span>Недоступно</span></div>`}
+
+                            ${android.available 
+                                ? `<a href="${android.url}" class="btn btn-active" download>Android<span>Скачать APK</span></a>`
+                                : `<div class="btn btn-disabled">Android<span>Скоро</span></div>`}
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = `<div class="loader" style="color: #ff3333;">Не удалось загрузить games.json. Проверь имя файла базы данных!</div>`;
+            }
+        }
+
+        loadApps();
+    </script>
 </body>
 </html>
