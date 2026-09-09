@@ -179,7 +179,8 @@
             const container = document.getElementById('app-list');
             try {
                 // Если база лежит в другом месте/файле, поправь имя здесь (например 'games.json')
-                const res = await fetch('games.json');
+                const res = await fetch('https://raw.githubusercontent.com/Amarasenik/Devik_db/main/games.json');
+
                 if (!res.ok) throw new Error('Ошибка сети');
                 const apps = await res.json();
 
