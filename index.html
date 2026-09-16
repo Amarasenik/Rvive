@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RVIVE Studio</title>
+    <title>RVIVE</title>
     <style>
         :root {
             --bg: #0d0e12;
@@ -179,7 +179,7 @@
             const container = document.getElementById('app-list');
             try {
                 // Если база лежит в другом месте/файле, поправь имя здесь (например 'games.json')
-                const res = await fetch('https://raw.githubusercontent.com/Amarasenik/Devik_db/main/games.json');
+                const res = await fetch('https://raw.githubusercontent.com/Amarasenik/Rvive/refs/heads/main/games.json');
 
                 if (!res.ok) throw new Error('Ошибка сети');
                 const apps = await res.json();
