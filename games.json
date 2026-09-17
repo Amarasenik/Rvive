@@ -6,9 +6,10 @@
     "icon": "https://raw.githubusercontent.com/Amarasenik/Rvive/refs/heads/main/1000121920-removebg-preview.ico",
     "description": "Установите Оффициальный клиент для быстрого скачивания игр.",
     "platforms": {
-      "windows": { "available": true,"url": "https://raw.githubusercontent.com/Amarasenik/Rvive/refs/heads/main/rvive.zip" },
+      "windows": { "available": true, "url": "https://raw.githubusercontent.com/Amarasenik/Rvive/refs/heads/main/rvive.zip" },
       "android": { "available": false, "url": "#" }
-    },
+    }
+  },
   {
     "id": "rvizivalka",
     "title": "Real Visivalka",
