@@ -201,19 +201,12 @@
                             </div>
                         </div>
 
-                        <div class="description">
-                            ${app.description || 'Описание отсутствует.'}
-                        </div>
+                        
 
-                        <div class="download-grid">
-                            ${win.available 
-                                ? `<a href="${win.url}" class="btn btn-active" download>Windows<span>Скачать</span></a>`
-                                : `<div class="btn btn-disabled">Windows<span>Недоступно</span></div>`}
-
-                            ${android.available 
-                                ? `<a href="${android.url}" class="btn btn-active" download>Android<span>Скачать APK</span></a>`
-                                : `<div class="btn btn-disabled">Android<span>Скоро</span></div>`}
-                        </div>
+                       <a href="download.html?id=${app.id}" class="btn btn-active" style="display: block; text-align: center; text-decoration: none; margin-top: 14px; padding: 12px;">
+            Скачать
+            <span style="display: block; font-size: 0.65rem; font-weight: normal; opacity: 0.8; margin-top: 2px;">Выбрать платформу</span>
+        </a>
                     `;
                     container.appendChild(card);
                 });
