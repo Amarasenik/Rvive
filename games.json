@@ -40,4 +40,15 @@
       "android": "Вибромотор!"
     }
   }
+   {
+    "id": "1",
+    "title": "CotyLand",
+    "version": "1.0",
+    "icon": "https://raw.githubusercontent.com/Amarasenik/Rvive/refs/heads/main/1000121920-removebg-preview.ico",
+    "description": "Собирай котиков",
+    "platforms": {
+      "windows": { "available": false, "url": "https://raw.githubusercontent.com/Amarasenik/Rvive/refs/heads/main/rvive.zip" },
+      "android": { "available": true, "url": "#" }
+    }
+  },
 ]
