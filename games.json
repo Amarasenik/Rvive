@@ -48,7 +48,7 @@
     "description": "Собирай котиков",
     "platforms": {
       "windows": { "available": false, "url": "https://raw.githubusercontent.com/Amarasenik/Rvive/refs/heads/main/rvive.zip" },
-      "android": { "available": true, "url": "#" }
+      "android": { "available": true, "url": "https://github.com/Amarasenik/Rvive/raw/refs/heads/main/RELEASE.apk" }
     }
   },
 ]
