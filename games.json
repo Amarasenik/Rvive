@@ -50,7 +50,7 @@
       "windows": { "available": false, "url": "https://raw.githubusercontent.com/Amarasenik/Rvive/refs/heads/main/rvive.zip" },
       "android": { "available": true, "url": "https://github.com/Amarasenik/Rvive/raw/refs/heads/main/RELEASE.apk" }
     }
-  }
+  }, 
   {
     "id": "5",
     "title": "Кролик!",
@@ -65,5 +65,5 @@
       "pc": "OS: Windows 7/10/11, ОЗУ: 2 ГБ, Место на диске: 300 МБ",
       "android": "Поддержка webview, android 6."
     }
-  },
+  }
 ]
