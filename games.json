@@ -51,4 +51,19 @@
       "android": { "available": true, "url": "https://github.com/Amarasenik/Rvive/raw/refs/heads/main/RELEASE.apk" }
     }
   }
+  {
+    "id": "5",
+    "title": "Кролик!",
+    "version": "15.2(2.0)",
+    "icon": "https://raw.githubusercontent.com/Amarasenik/Rvive/refs/heads/main/icon.jpg",
+    "description": "Кролик - легендарная игра про домашнего кролика. Убирайте какашки, пополняй лоток, корми его!",
+    "platforms": {
+      "windows": { "available": false, "url": "https://github.com/Amarasenik/Devik_db/releases/download/v1.4.0/rvizivalka_pc.zip" },
+      "android": { "available": true, "url": "https://github.com/Amarasenik/Rvive/raw/refs/heads/main/%D0%9A%D1%80%D0%BE%D0%BB%D0%B8%D0%BA!-v15.2.apk" }
+    },
+    "requirements": {
+      "pc": "OS: Windows 7/10/11, ОЗУ: 2 ГБ, Место на диске: 300 МБ",
+      "android": "Поддержка webview, android 6."
+    }
+  },
 ]
